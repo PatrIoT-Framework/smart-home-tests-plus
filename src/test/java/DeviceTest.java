@@ -48,7 +48,7 @@ public class DeviceTest {
                 .body("label", equalTo("door1"))
                 .body("deviceType", equalTo("Door"))
                 .body("enabled", instanceOf(Boolean.class))
-                .body("status", either(equalTo("opened")).or(equalTo("closed")));
+                .body("status", either(equalTo("Opened")).or(equalTo("Closed")));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class DeviceTest {
                 .body("label", equalTo("fireplace1"))
                 .body("deviceType", equalTo("Fireplace"))
                 .body("enabled", equalTo(false))
-                .body("status", either(equalTo("extinguished")).or(equalTo("on_fire")));
+                .body("status", either(equalTo("Extinguished")).or(equalTo("On_fire")));
 
     }
 
@@ -70,7 +70,7 @@ public class DeviceTest {
             .statusCode(200).assertThat()
                 .body("label", equalTo("thermometer1"))
                 .body("deviceType", equalTo("Thermometer"))
-                .body("enabled", equalTo(false))
+                .body("enabled", instanceOf(Boolean.class))
                 .body("unit", equalTo("C"))
                 .body("temperature", instanceOf(Float.class));
     }

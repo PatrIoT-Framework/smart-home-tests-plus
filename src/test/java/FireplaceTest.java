@@ -19,7 +19,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("extinguished"));
+                .body("status", equalTo("On_fire"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class FireplaceTest {
 
     @Test
     public void update_fireplace_returns_200_with_correct_label_and_devType() {
-        Map<String, Object> fireplace = Map.of("label","fireplace1","deviceType","Fireplace" ,"enabled",true, "status", "on_fire");
+        Map<String, Object> fireplace = Map.of("label","fireplace1","deviceType","Fireplace" ,"enabled",true, "status", "Extinguished");
 
         with().body(fireplace)
                 .when().put("http://localhost:8080/api/v0.1/gateway/house1/device/fireplace/fireplace1")
@@ -62,7 +62,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(true))
-                .body("status", equalTo("on_fire"));
+                .body("status", equalTo("Extinguished"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/fireplace/fireplace1")
                 .then()
@@ -71,9 +71,9 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(true))
-                .body("status", equalTo("on_fire"));
+                .body("status", equalTo("Extinguished"));
 
-        fireplace= Map.of("label", "fireplace1","deviceType","Fireplace", "enabled", false, "status", "extinguished");
+        fireplace= Map.of("label", "fireplace1","deviceType","Fireplace", "enabled", false, "status", "On_fire");
 
         with().body(fireplace)
                 .when().put("http://localhost:8080/api/v0.1/gateway/house1/device/fireplace/fireplace1")
@@ -83,7 +83,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("extinguished"));
+                .body("status", equalTo("On_fire"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/fireplace/fireplace1")
                 .then()
@@ -92,7 +92,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("extinguished"));
+                .body("status", equalTo("On_fire"));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("extinguished"));
+                .body("status", equalTo("On_fire"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/fireplace/fireplace1")
                 .then()
@@ -115,7 +115,7 @@ public class FireplaceTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("fireplace1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("extinguished"));
+                .body("status", equalTo("On_fire"));
     }
 
     @Test

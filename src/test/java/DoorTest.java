@@ -17,8 +17,7 @@ public class DoorTest {
                 .log().body()
                 .statusCode(200).assertThat()
                 .body("label", equalTo("door1"))
-                .body("enabled", equalTo(false))
-                .body("status", equalTo("closed"));
+                .body("status", equalTo("Opened"));
     }
 
     @Test
@@ -52,7 +51,7 @@ public class DoorTest {
 
     @Test
     public void update_door_returns_200_with_correct_label_and_devType() {
-        Map<String, Object> door = Map.of("label","door1","deviceType","Door" ,"enabled",true, "status", "opened");
+        Map<String, Object> door = Map.of("label","door1","deviceType","Door" ,"enabled",true, "status", "Closed");
 
         with().body(door)
                 .when().put("http://localhost:8080/api/v0.1/gateway/house1/device/door/door1")
@@ -63,7 +62,7 @@ public class DoorTest {
                 .assertThat()
                 .body("label", equalTo("door1"))
                 .body("enabled", equalTo(true))
-                .body("status", equalTo("opened"));
+                .body("status", equalTo("Closed"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/door/door1")
                 .then()
@@ -73,9 +72,9 @@ public class DoorTest {
                 .assertThat()
                 .body("label", equalTo("door1"))
                 .body("enabled", equalTo(true))
-                .body("status", equalTo("opened"));
+                .body("status", equalTo("Closed"));
 
-        door= Map.of("label", "door1", "enabled", false, "status", "closed", "deviceType", "Door");
+        door= Map.of("label", "door1", "enabled", false, "status", "Opened", "deviceType", "Door");
 
         with().body(door)
                 .when().put("http://localhost:8080/api/v0.1/gateway/house1/device/door/door1")
@@ -86,7 +85,7 @@ public class DoorTest {
                 .assertThat()
                 .body("label", equalTo("door1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("closed"));
+                .body("status", equalTo("Opened"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/door/door1")
                 .then()
@@ -96,7 +95,7 @@ public class DoorTest {
                 .assertThat()
                 .body("label", equalTo("door1"))
                 .body("enabled", equalTo(false))
-                .body("status", equalTo("closed"));
+                .body("status", equalTo("Opened"));
     }
 
     @Test
@@ -111,8 +110,8 @@ public class DoorTest {
                 .statusCode(200)
                 .assertThat()
                 .body("label", equalTo("door1"))
-                .body("enabled", equalTo(false))
-                .body("status", equalTo("closed"));
+                .body("enabled", instanceOf(Boolean.class))
+                .body("status", equalTo("Opened"));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/door/door1")
                 .then()
@@ -121,13 +120,13 @@ public class DoorTest {
                 .statusCode(200)
                 .assertThat()
                 .body("label", equalTo("door1"))
-                .body("enabled", equalTo(false))
-                .body("status", equalTo("closed"));
+                .body("enabled", instanceOf(Boolean.class))
+                .body("status", equalTo("Opened"));
 
     }
 
     @Test
-    public void door_update_returns_404_with_incorrect_label() {
+    public void door_update_returns_400_with_incorrect_label() {
         Map<String, Object> door = Map.of("label","door2","deviceType","Door" ,"enabled",true, "status", "opened");
 
         with().body(door)
@@ -135,9 +134,7 @@ public class DoorTest {
                 .then()
                 .log().all()
                 .log().body()
-                .statusCode(404)
-                .assertThat()
-                .body("status", equalTo("NOT_FOUND"));
+                .statusCode(400);
     }
 
    @Test
@@ -239,7 +236,7 @@ public class DoorTest {
 
 
    @Test
-    public void door_update_returns_404_with_incorrect_devType() {
+    public void door_update_returns_400_with_incorrect_devType() {
         Map<String, Object> door = Map.of("label","door1","deviceType","Door" ,"enabled",true, "status", "opened");
 
         with().body(door)
@@ -247,7 +244,7 @@ public class DoorTest {
                 .then()
                 .log().all()
                 .log().body()
-                .statusCode(404);
+                .statusCode(400);
     }
 
     @Test

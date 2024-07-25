@@ -19,7 +19,7 @@ public class ThermometerTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("thermometer1"))
                 .body("unit", equalTo("C"))
-                .body("enabled", equalTo(false))
+                .body("enabled", equalTo(true))
                 .body("temperature", instanceOf(Float.class));
     }
 
@@ -98,7 +98,7 @@ public class ThermometerTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("thermometer1"))
                 .body("unit", equalTo("C"))
-                .body("enabled", equalTo(false))
+                .body("enabled", equalTo(true))
                 .body("temperature", instanceOf(Float.class));
     }
 
@@ -114,7 +114,7 @@ public class ThermometerTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("thermometer1"))
                 .body("unit", equalTo("C"))
-                .body("enabled", equalTo(false))
+                .body("enabled", equalTo(true))
                 .body("temperature", instanceOf(Float.class));
 
         get("http://localhost:8080/api/v0.1/gateway/house1/device/thermometer/thermometer1")
@@ -124,7 +124,7 @@ public class ThermometerTest {
                 .statusCode(200).assertThat()
                 .body("label", equalTo("thermometer1"))
                 .body("unit", equalTo("C"))
-                .body("enabled", equalTo(false))
+                .body("enabled", equalTo(true))
                 .body("temperature", instanceOf(Float.class));
     }
 
