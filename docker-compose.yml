@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  gateway:
+    image: virtual-smart-home-plus-api:latest
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+  smart-home:
+    image: virtual-smart-home-plus:latest
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
